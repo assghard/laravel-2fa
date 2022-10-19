@@ -1,6 +1,6 @@
 {
     "name": "assghard/laravel-2fa",
-    "description": "Laravel 2FA package which provides e-mail and SMS code verification",
+    "description": "Laravel 2FA package which provides sending verification codes via e-mail and SMS",
     "keywords": [
         "assghard",
         "laravel",
@@ -26,6 +26,9 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=8.0"
+        "php": ">=8.0",
+        "illuminate/database": "^9.18",
+        "illuminate/support": "^9.18",
+        "smsapi/php-client": "^3.0.6"
     }
 }
