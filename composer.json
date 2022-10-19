@@ -1,0 +1,31 @@
+{
+    "name": "assghard/laravel-2fa",
+    "description": "Laravel 2FA package which provides e-mail and SMS code verification",
+    "keywords": [
+        "assghard",
+        "laravel",
+        "2fa",
+        "email",
+        "sms",
+        "php",
+        "library",
+        "package"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Assghard\\Laravel2fa\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "assghard",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=8.0"
+    }
+}
