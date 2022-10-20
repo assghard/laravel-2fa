@@ -7,7 +7,7 @@ return [
     /**
      * Enable 2FA for Users. After enabling this feature 2FA will be required
      */
-    'enable' => env('2FA_ENABLE', false),
+    'enabled' => env('2FA_ENABLED', false),
 
     /**
      * Default 2FA method

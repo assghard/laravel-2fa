@@ -24,7 +24,7 @@ enum TwoFactorVerificationMethodsEnum: int
     }
 
     /**
-     * Get case description
+     * Get case description translation
      *
      * @return string
      */
@@ -32,34 +32,4 @@ enum TwoFactorVerificationMethodsEnum: int
     {
         return __('2fa.descriptions.'.$this->name);
     }
-
-    // private static function mapCaseNameToValue($name)
-    // {
-    //     foreach (self::cases() as $case) {
-    //         if ($case->name == $name) {
-    //             return $case->value;
-    //         }
-    //     }
-
-    //     return null;
-    // }
-
-    /**
-     * Get key-value array with translated values for frontend select
-     *
-     * @return array
-     */
-    // public static function translatedArray($exeptNames = []): array
-    // {
-    //     $data = [];
-    //     foreach (self::names() as $name) {
-    //         if (in_array($name, $exeptNames)) {
-    //             continue;
-    //         }
-
-    //         $data[self::mapCaseNameToValue($name)] = __('2fa.methods.'.$name);
-    //     }
-
-    //     return $data;
-    // }
 }

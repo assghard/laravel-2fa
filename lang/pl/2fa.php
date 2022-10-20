@@ -11,6 +11,6 @@ return [
     ],
     'messages' => [
         '2fa_code' => 'Twój kod weryfikacji dwuetapowej to ',
-        '2fa_email_subject' => 'Weryfikacja dwuetapowa',
+        '2fa_email_subject' => 'Kod weryfikacji dwuetapowej (2FA)',
     ]
 ];

@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Assghard\Laravel2fa\Models;
 
-use Assghard\Laravel2fa\Enums\TwoFactorVerificationMethodsEnum;
+use Illuminate\Database\Eloquent\Model;
 
-class TwoFactorVerificationCode
+class TwoFactorVerificationCode extends Model
 {
+    protected $table = 'user_2fa_codes';
     protected $fillable = [
         'user_id',
         'code',
@@ -20,7 +21,6 @@ class TwoFactorVerificationCode
      * @var array<string, string>
      */
     protected $casts = [
-        'expires_at' => 'datetime',
-        'type' => TwoFactorVerificationMethodsEnum::class,
+        'expires_at' => 'datetime'
     ];
 }

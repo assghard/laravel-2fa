@@ -7,10 +7,12 @@ namespace Assghard\Laravel2fa\Services;
 use Assghard\Laravel2fa\Enums\TwoFactorVerificationMethodsEnum;
 use Assghard\Laravel2fa\Providers\EmailProvider;
 use Assghard\Laravel2fa\Providers\SmsApiPlProvider;
+use Illuminate\Database\Eloquent\Model;
+use Assghard\Laravel2fa\Models\TwoFactorVerificationCode;
 
 class TwoFactorVerificationService
 {
-    public function sendUserTwoFactorVerificationCode($user, $verificationMethod, int $length = 6, bool $useLetters = false): bool
+    public function sendUserTwoFactorVerificationCode(Model $user, TwoFactorVerificationMethodsEnum $verificationMethod, int $length = 6, bool $useLetters = false): bool
     {
         $twoFactorCodeEntity = $this->createUserVerificationCode($user, $length, $useLetters);
         if (empty($twoFactorCodeEntity)) {
@@ -20,7 +22,7 @@ class TwoFactorVerificationService
         return $this->sendUserNotification($verificationMethod, $user, $twoFactorCodeEntity->code);
     }
 
-    protected function createUserVerificationCode($user, $length, $useLetters)
+    protected function createUserVerificationCode(Model $user, int $length, bool $useLetters = false): TwoFactorVerificationCode|bool
     {
         $user->loadMissing('two_factor_verification_codes');
         if ($this->userCanCreateVerificationCode($user) === false) {
@@ -57,7 +59,7 @@ class TwoFactorVerificationService
         return implode('', $digits);
     }
 
-    protected function sendUserNotification($verificationMethod, $user, $code) 
+    protected function sendUserNotification(TwoFactorVerificationMethodsEnum $verificationMethod, Model $user, string|int $code): bool
     {
         if ($verificationMethod == TwoFactorVerificationMethodsEnum::Email) {
             return (new EmailProvider)->sendNotification($user->email, __('2fa.messages.2fa_code').$code);
@@ -74,7 +76,7 @@ class TwoFactorVerificationService
      *  - max 1 code per 1 minute
      *  - max quantity of verification codes per day
      */
-    protected function userCanCreateVerificationCode($user, $resend = false)
+    protected function userCanCreateVerificationCode(Model $user, bool $resend = false): bool
     {
         if ($resend === true) {
             $result = $user->two_factor_verification_codes()->where('created_at', '>', now()->subMinutes(1))->count();
