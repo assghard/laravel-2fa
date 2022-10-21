@@ -31,4 +31,16 @@ return [
      */
     'user_code_valid_time' => 10,
 
+    'code' => [
+        /**
+         * Default 2FA code length
+         */
+        'length' => 6,
+    
+        /**
+         * Default 2FA code length
+         */
+        'use_letters' => false,
+    ],
+
 ];
