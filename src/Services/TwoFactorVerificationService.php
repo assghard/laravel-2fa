@@ -22,6 +22,21 @@ class TwoFactorVerificationService
         return $this->sendUserNotification($verificationMethod, $user, $twoFactorCodeEntity->code);
     }
 
+    public function findUser2faCode(Model $user, string|int $code)
+    {
+        return TwoFactorVerificationCode::where([
+                'user_id' => $user->id,
+                'code' => $code,
+        ])->first();
+    }
+
+    public function findUserLast2faCode(Model $user)
+    {
+        return TwoFactorVerificationCode::where([
+            'user_id' => $user->id
+        ])->orderBy('id', 'DESC')->first();
+    }
+
     protected function createUserVerificationCode(Model $user, int $length, bool $useLetters = false): TwoFactorVerificationCode|bool
     {
         $user->loadMissing('two_factor_verification_codes');

@@ -1,10 +1,12 @@
 To protect your account with two-factor authentication
 
 Remenber abount adding variables to .env file
-2FA_ENABLED=
+
+```
+2FA_ENABLED=true
 SMS_API_TOKEN=
-
-
+SMS_API_NAME_FORM=
+```
 
 
 ```php
@@ -27,3 +29,10 @@ User.php model
 Add `phone_number` field to fillable array
 Add `use UserTwoFactorVerificationTrait`;
 
+
+
+max 1 code per 1 minute
+
+
+
+replace str() helper by Str Facade ?
