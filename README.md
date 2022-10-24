@@ -1,17 +1,27 @@
 # assghard Laravel 2FA - Two Factor Authentication package for Laravel
 
 Protect user accounts with Two-Factor Authentication. Send 2FA verification codes for user via E-mail or SMS provider. 
-The package is helpful if you don't use Jetstream but need 2FA
 
-## Work In Progress
+The package is helpful if you don't use Jetstream but need 2FA.
 
+All classes are extendable, so you can extend and override everything and customize and adjust it to the project. 
+There in no certain conception or implementation of 2FA. This package provides only a basic set of useful classes and methods, so you can implement 2FA how you want in way you want
+
+============================================
+
+## Work In Progress - not tested yet
+
+============================================
 
 ### Features: 
+
  * Customiation: package includes a set of helpful stuff using for 2FA verification. You can implement them how you want and customize everything. Every class can be extended and overridden
  * Resent 2FA code: once per minute
  * Flexible config
+ * Every code is valid for X minutes (`config('2fa.user_code_valid_time')`). If user use "Resend" function and recive N codes - every code is valid for X minutes
 
-## Installation
+## Installation and usage
+
 * Run `composer require assghard/laravel-2fa`
 * Add provider in `config -> app.php` providers section:
 ```php
@@ -23,13 +33,26 @@ The package is helpful if you don't use Jetstream but need 2FA
 That command will add a few files to your project: 
 ```php
 config/2fa.php #2FA config
+
+# migrations
 migrations/create_user_2fa_codes_table.php
 migrations/add_phone_number_field_to_users_table.php
+
+# translations: add or delete languages you don't need
+lang/en/2fa.php
+lang/pl/2fa.php
+
 ```
 * Run command: `php artisan migrate`
 * Add Stuff to your User model:
 
 ```php
+/*
+ * =========================================
+ * Basic usage
+ * =========================================
+ */
+
 use Assghard\Laravel2fa\Traits\UserTwoFactorVerificationTrait; # Add trait in use section
 use Assghard\Laravel2fa\Enums\TwoFactorVerificationMethodsEnum; # available 2FA methods Enum
 ...
@@ -50,8 +73,14 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 ```
 
-If you are going to assign 2FA method to user and user (or Admin) can change the method: 
+If you are going to assign 2FA method to user and user (or Admin) can change the method (in this case remember to create a migration for `tfa_method` field): 
 ```php
+/*
+ * =========================================
+ * NOT Basic usage (Example of customization)
+ * =========================================
+ */
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -84,7 +113,15 @@ If you are going to assign 2FA method to user and user (or Admin) can change the
 # SMS_API_NAME_FORM=
 ```
 
-## Components
+## Package components
+
+* Migration stubs
+* Translations
+* Model
+* Enum
+* Email and SMS providers
+* Traits
+* Notification providers
 * Flexible config
 ```php
     /**
@@ -122,18 +159,19 @@ If you are going to assign 2FA method to user and user (or Admin) can change the
     ],
 ```
 
-* Migrations
-* Translations
-* Model
-* Enum
-* Email and SMS providers
-* Traits
+## TODO list: 
 
-
-## TODO: 
-
+* Complete all TODOs
+* Testing
+* Refactoring
+* Testing
 * Replace str() helper by Str Facade to support older versions of Laravel?
+* Add user IP address field to `user_2fa_codes` table? Make code is valid only for certain IP address?
 
+
+## Bugs and suggestions
+
+If you find a bug, please open an issue or fork this project and make Pull request
 
 ## License
 

@@ -17,6 +17,7 @@ return [
 
     /**
      * Allow user to change 2FA method
+     * TODO: implement or clean up
      */
     // 'allow_change_2fa_method' => env('ALLOW_CHANGE_2FA_METHOD', false),
 
