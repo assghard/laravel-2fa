@@ -44,11 +44,15 @@ class TwoFactorVerificationService
             return false;
         }
         
-        while (true) {
+        if ($user->two_factor_verification_codes->isEmpty()) {
             $code = $this->generateCode($length, $useLetters);
-            $notUniqueCount = $user->two_factor_verification_codes->where('code', $code)->count();
-            if ($notUniqueCount == 0) {
-                break;
+        } else {
+            while (true) { // who knows
+                $code = $this->generateCode($length, $useLetters);
+                $notUniqueCount = $user->two_factor_verification_codes->where('code', $code)->count();
+                if ($notUniqueCount == 0) {
+                    break;
+                }
             }
         }
 
@@ -86,10 +90,10 @@ class TwoFactorVerificationService
     }
 
     /**
-     * In case of too much tries to resend verification email.
+     * In case of too much tries to resend verification code.
      * Limits:
      *  - max 1 code per 1 minute
-     *  - max quantity of verification codes per day
+     *  - max quantity of verification codes per day (from 2fa.php config)
      */
     protected function userCanCreateVerificationCode(Model $user, bool $resend = false): bool
     {
@@ -100,7 +104,7 @@ class TwoFactorVerificationService
             }
         }
 
-        $result = $user->two_factor_verification_codes()->count();
+        $result = $user->two_factor_verification_codes()->whereDate('created_at', today())->count();
         if ($result > config('2fa.daily_user_codes_limit')) { // daily limit per uesr
             return false;
         }
