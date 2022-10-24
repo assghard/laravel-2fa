@@ -43,8 +43,19 @@ lang/en/2fa.php
 lang/pl/2fa.php
 
 ```
+* Remenber abount adding variables to `.env` nad `.env.example` files
+
+```
+# To enable 2FA for users
+2FA_ENABLED=true
+
+# uncomment if you are going to use sending 2FA SMS codes
+# SMS_API_TOKEN=
+# SMS_API_NAME_FORM=
+```
+
 * Run command: `php artisan migrate`
-* Add Stuff to your User model:
+* Add stuff to your User model:
 
 ```php
 /*
@@ -71,6 +82,73 @@ class User extends Authenticatable implements MustVerifyEmail
         ...
         'phone_number', # only if you are going to send 2FA codes via SMS message
     ];
+```
+
+* Send a 2FA code after user is successfully logged in.
+
+`App\Http\Controllers\Auth\AuthenticatedSessionController`
+```php
+use Assghard\Laravel2fa\Services\TwoFactorVerificationService;
+use Assghard\Laravel2fa\Enums\TwoFactorVerificationMethodsEnum;
+...
+class AuthenticatedSessionController extends Controller
+{
+    ...
+
+    $sent = (new TwoFactorVerificationService())->sendUserTwoFactorVerificationCode($user, $verificationMethodFromEnum);
+    dd($sent);
+    // And do everything you want after sending code
+
+```
+
+* You will need a Controller: `php artisan make:controller Auth\TwoFactroVerificationAuthController`
+* Also you will need x3 routes for 2FA verification. Add them to Laravel `auth.php` routes.
+
+```php
+    Route::middleware('auth')->group(function () {
+        ...
+        Route::group(['prefix' => '2fa'], function () {
+            Route::get('verify', [TwoFactroVerificationAuthController::class, 'verify'])->name('2fa.verify');
+            Route::post('verify', [TwoFactroVerificationAuthController::class, 'confirm'])->name('2fa.verify.confirm')->middleware('throttle:2fa_verify_confirm');
+            Route::get('resend', [TwoFactroVerificationAuthController::class, 'resend'])->name('2fa.resend-code');
+    });
+```
+* Make a new `2fa_verify_confirm` throttle in project `RouteServiceProvider`
+
+```php
+    // 2fa_verify_confirm is a name of throttle and middleware
+    RateLimiter::for('2fa_verify_confirm', function (Request $request) {
+        return Limit::perMinute(5)->by($request->user()?->id ?: $request->ip());
+    });
+```
+
+* Probably, you will need a middleware to check if code is verified. 
+
+Run command `php artisan make:middleware User2faCodeVerified`
+```php
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+
+class User2faCodeVerified
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        // And do something like this or not :)
+        // Database, session or other approach - the choice is yours
+
+        $user = auth()->user();
+        if ($user->two_factor_verification_codes()->count() > 0) {
+            return redirect()->route('2fa.verify');
+        }
 ```
 
 If you are going to assign 2FA method to user and user (or Admin) can change the method (in this case remember to create a migration for `tfa_method` field): 
@@ -100,17 +178,6 @@ If you are going to assign 2FA method to user and user (or Admin) can change the
         ...
         'tfa_method' => TwoFactorVerificationMethodsEnum::class, // leverage enums for 2FA method casting
     ];
-```
-
-* Remenber abount adding variables to `.env` nad `.env.example` files
-
-```
-# To enable 2FA for users
-2FA_ENABLED=true
-
-# uncomment if you are going to use sending 2FA SMS codes
-# SMS_API_TOKEN=
-# SMS_API_NAME_FORM=
 ```
 
 ## Package components
