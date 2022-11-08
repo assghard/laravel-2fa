@@ -228,7 +228,6 @@ If you are going to assign 2FA method to user and user (or Admin) can change the
 
 ## TODO list: 
 
-* Complete all TODOs
 * Testing
 * Refactoring
 * Testing

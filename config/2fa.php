@@ -16,12 +16,6 @@ return [
     'default_method' => TwoFactorVerificationMethodsEnum::Email,
 
     /**
-     * Allow user to change 2FA method
-     * TODO: implement or clean up
-     */
-    // 'allow_change_2fa_method' => env('ALLOW_CHANGE_2FA_METHOD', false),
-
-    /**
      * After successful login all user codes are deleting, so user will have limit reseted
      */
     'daily_user_codes_limit' => 25,
