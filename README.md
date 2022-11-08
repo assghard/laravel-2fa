@@ -7,12 +7,6 @@ The package is helpful if you don't use Jetstream but need 2FA.
 All classes are extendable, so you can extend and override everything and customize and adjust it to the project. 
 There in no certain conception or implementation of 2FA. This package provides only a basic set of useful classes and methods, so you can implement 2FA how you want in way you want
 
-============================================
-
-## Work In Progress - not tested yet
-
-============================================
-
 ### Features: 
 
  * Customiation: package includes a set of helpful stuff using for 2FA verification. You can implement them how you want and customize everything. Every class can be extended and overridden
