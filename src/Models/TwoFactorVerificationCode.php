@@ -23,4 +23,9 @@ class TwoFactorVerificationCode extends Model
     protected $casts = [
         'expires_at' => 'datetime'
     ];
+
+    public function hasExpired()
+    {
+        return ($this->expires_at->isFuture()) ? false : true;
+    }
 }
