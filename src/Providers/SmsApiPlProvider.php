@@ -32,7 +32,7 @@ class SmsApiPlProvider
     {
         $sms = SendSmsBag::withMessage($phoneNumber, $smsMessage);
         $sms->encoding = 'utf-8';
-        $sms->from = env('SMS_API_NAME_FORM'); // this name should been added in smsapi admin panel!
+        $sms->from = config('2fa.sms.name_from'); // this name should been added in smsapi admin panel!
         
         $service = (new SmsapiHttpClient())->smsapiPlService($this->apiToken);
 

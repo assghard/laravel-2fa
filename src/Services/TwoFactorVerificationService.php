@@ -83,7 +83,7 @@ class TwoFactorVerificationService
         if ($verificationMethod == TwoFactorVerificationMethodsEnum::Email) {
             return (new EmailProvider)->sendNotification($user->email, __('2fa.messages.2fa_code').$code);
         } elseif($verificationMethod == TwoFactorVerificationMethodsEnum::Sms) {
-            return (new SmsApiPlProvider(env('SMS_API_TOKEN')))->sendNotification($user->phone_number, __('2fa.messages.2fa_code').$code);
+            return (new SmsApiPlProvider(config('2fa.sms.api_token')))->sendNotification($user->phone_number, __('2fa.messages.2fa_code').$code);
         } else {
             return false;
         }

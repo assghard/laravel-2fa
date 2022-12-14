@@ -38,4 +38,16 @@ return [
         'use_letters' => false,
     ],
 
+    /**
+     * SMS API config
+     */
+    'sms' => [
+        /**
+         * API token from https://www.smsapi.com/en
+         */
+        'api_token' => env('SMS_API_TOKEN', null),
+
+        'name_from' => env('SMS_API_NAME_FORM', null),
+    ],
+
 ];
