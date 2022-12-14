@@ -218,6 +218,21 @@ If you are going to assign 2FA method to user and user (or Admin) can change the
          */
         'use_letters' => false,
     ],
+
+    /**
+     * SMS API config
+     */
+    'sms' => [
+        /**
+         * API token from https://www.smsapi.com/en
+         */
+        'api_token' => env('SMS_API_TOKEN', null),
+
+        /**
+         * Sender name
+         */
+        'name_from' => env('SMS_API_NAME_FORM', null),
+    ],
 ```
 
 ## TODO list: 

@@ -47,6 +47,9 @@ return [
          */
         'api_token' => env('SMS_API_TOKEN', null),
 
+        /**
+         * Sender name
+         */
         'name_from' => env('SMS_API_NAME_FORM', null),
     ],
 
