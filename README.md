@@ -18,7 +18,6 @@ There in no certain conception or implementation of 2FA. This package provides o
 
 - Laravel 8.x to 9.x
 - PHP >= 8.0
-- smsapi/php-client >= 3.0.6
 
 ### Laravel support
 
