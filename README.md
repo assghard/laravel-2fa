@@ -19,7 +19,7 @@ There in no certain conception or implementation of 2FA. This package provides o
 - Laravel 8.x to 9.x
 - PHP >= 8.0
 
-### Laravel support
+### Laravel and PHP support
 
 | Laravel version | PHP version | Release       |
 |:---------------:|:-----------:|:-------------:|
