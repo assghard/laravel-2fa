@@ -14,6 +14,23 @@ There in no certain conception or implementation of 2FA. This package provides o
  * Flexible config
  * Every code is valid for X minutes (`config('2fa.user_code_valid_time')`). If user use "Resend" function and recive N codes - every code is valid for X minutes
 
+## Requirements
+
+- Laravel 8.x to 9.x
+- PHP >= 8.0
+- smsapi/php-client >= 3.0.6
+
+### Laravel support
+
+| Laravel version | PHP version | Release       |
+|:---------------:|:-----------:|:-------------:|
+| 10.x            | PHP >=8.1   | WIP           |
+| 8.x to 9.X      | PHP >=8.0   | 0.1.2         |
+
+
+
+## Installation
+
 ## Installation and usage
 
 * Run `composer require assghard/laravel-2fa`
