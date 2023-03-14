@@ -22,7 +22,7 @@ class TwoFactorVerificationService
         return $this->sendUserNotification($verificationMethod, $user, $twoFactorCodeEntity->code);
     }
 
-    public function findUser2faCode(Model $user, string|int $code)
+    public function findUser2faCode(Model $user, string|int $code): TwoFactorVerificationCode|null
     {
         return TwoFactorVerificationCode::where([
                 'user_id' => $user->id,
@@ -30,7 +30,7 @@ class TwoFactorVerificationService
         ])->first();
     }
 
-    public function findUserLast2faCode(Model $user)
+    public function findUserLast2faCode(Model $user): TwoFactorVerificationCode|null
     {
         return TwoFactorVerificationCode::where([
             'user_id' => $user->id

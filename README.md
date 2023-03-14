@@ -21,10 +21,10 @@ There in no certain conception or implementation of 2FA. This package provides o
 
 ### Laravel and PHP support
 
-| Laravel version | PHP version | Release       |
-|:---------------:|:-----------:|:-------------:|
-| 10.x            | PHP >=8.1   | WIP           |
-| 8.x to 9.X      | PHP >=8.0   | 0.1.2         |
+| Laravel version | PHP version | Release       | Installation                                  |
+|:---------------:|:-----------:|:-------------:|:---------------------------------------------:|
+| 10.x            | PHP >=8.1   | WIP           | `composer require assghard/laravel-2fa`       |
+| 8.x to 9.X      | PHP >=8.0   | 0.1.2         | `composer require assghard/laravel-2fa:0.1.2` |
 
 
 
@@ -32,7 +32,10 @@ There in no certain conception or implementation of 2FA. This package provides o
 
 ## Installation and usage
 
-* Run `composer require assghard/laravel-2fa`
+* Install latest release: run `composer require assghard/laravel-2fa`
+
+    - To install older version run: `composer require assghard/laravel-2fa:VERSION`
+
 * Add provider in `config -> app.php` providers section:
 ```php
 'providers' => [

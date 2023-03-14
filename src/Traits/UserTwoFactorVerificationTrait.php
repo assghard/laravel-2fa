@@ -16,10 +16,8 @@ trait UserTwoFactorVerificationTrait
 
     /**
      * Delete all user 2FA codes after successful login
-     *
-     * @return void
      */
-    public function clear2faCodes()
+    public function clear2faCodes(): void
     {
         $this->two_factor_verification_codes()->delete();
     }

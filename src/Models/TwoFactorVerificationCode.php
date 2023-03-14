@@ -12,7 +12,7 @@ class TwoFactorVerificationCode extends Model
     protected $fillable = [
         'user_id',
         'code',
-        'expires_at',
+        'expires_at'
     ];
 
     /**
@@ -24,7 +24,7 @@ class TwoFactorVerificationCode extends Model
         'expires_at' => 'datetime'
     ];
 
-    public function hasExpired()
+    public function hasExpired(): bool
     {
         return ($this->expires_at->isFuture()) ? false : true;
     }

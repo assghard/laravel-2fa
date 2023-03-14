@@ -6,12 +6,12 @@ use Illuminate\Support\ServiceProvider;
 
 class TwoFactorVerificationServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->registerPublishables();
     }
 
-    public function register()
+    public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/2fa.php', '2fa');
     }
