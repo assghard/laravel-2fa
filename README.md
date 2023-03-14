@@ -259,7 +259,6 @@ If you are going to assign 2FA method to user and user (or Admin) can change the
 * Testing
 * Refactoring
 * Testing
-* Replace str() helper by Str Facade to support older versions of Laravel?
 * Add user IP address field to `user_2fa_codes` table? Make code is valid only for certain IP address?
 
 

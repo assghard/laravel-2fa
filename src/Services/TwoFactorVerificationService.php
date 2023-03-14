@@ -9,6 +9,7 @@ use Assghard\Laravel2fa\Providers\EmailProvider;
 use Assghard\Laravel2fa\Providers\SmsApiPlProvider;
 use Illuminate\Database\Eloquent\Model;
 use Assghard\Laravel2fa\Models\TwoFactorVerificationCode;
+use Illuminate\Support\Str;
 
 class TwoFactorVerificationService
 {
@@ -67,7 +68,7 @@ class TwoFactorVerificationService
     protected function generateCode(int $length = 6, bool $useLetters = false): string
     {
         if ($useLetters === true) {
-            return str()->random($length);
+            return Str::random($length);
         }
 
         $digits = [];
